@@ -6,7 +6,7 @@ Judging criteria, verbatim: "a real reason to use $wif, a flywheel that holds up
 
 ---
 
-## 1. Fix the checker in the browser (blocking, $0)
+## 1. ✅ DONE: fix the checker in the browser (server route `/api/check`)
 
 See KNOWN-ISSUES #1 for symptoms and leads.
 **Done when:** `/check?pool=0x71ef…8c79` shows SHOWN 0.00% / PAID 1.00% with the lime marker and the permissions table in a real browser, within about 5s.

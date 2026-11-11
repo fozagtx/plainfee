@@ -134,18 +134,34 @@ export const isPoolId = (v: string): v is Hex => /^0x[0-9a-fA-F]{64}$/.test(v.tr
 
 const pipsToBps = (pips: number) => pips / 100;
 
+type InitLog = Awaited<ReturnType<typeof getInitLogs>>[number];
+const getInitLogs = (client: PublicClient, poolId: Hex, fromBlock: bigint, toBlock: bigint) =>
+  client.getLogs({ address: ADDRESSES.poolManager, event: INITIALIZE, args: { id: poolId }, fromBlock, toBlock });
+
+/** A pool's key never changes, so it is looked up once per server instance. */
+const initCache = new Map<Hex, InitLog>();
+/** The public RPC throttles bursts, so the 10M-block windows are scanned a few at a time. */
+const LOG_CONCURRENCY = 4;
+
 async function findInitialize(client: PublicClient, poolId: Hex, latest: bigint) {
+  const cached = initCache.get(poolId);
+  if (cached) return cached;
   const ranges: Array<[bigint, bigint]> = [];
   for (let from = 0n; from <= latest; from += MAX_LOG_RANGE) {
     const to = from + MAX_LOG_RANGE - 1n > latest ? latest : from + MAX_LOG_RANGE - 1n;
     ranges.push([from, to]);
   }
-  const results = await Promise.all(
-    ranges.map(([fromBlock, toBlock]) =>
-      client.getLogs({ address: ADDRESSES.poolManager, event: INITIALIZE, args: { id: poolId }, fromBlock, toBlock }),
-    ),
-  );
-  return results.flat()[0];
+  for (let i = 0; i < ranges.length; i += LOG_CONCURRENCY) {
+    const batch = await Promise.all(
+      ranges.slice(i, i + LOG_CONCURRENCY).map(([from, to]) => getInitLogs(client, poolId, from, to)),
+    );
+    const found = batch.flat()[0];
+    if (found) {
+      initCache.set(poolId, found);
+      return found;
+    }
+  }
+  return undefined;
 }
 
 /** Newest Swap event of the pool. Busy pools can exceed the 10k-log cap, so the window starts small,

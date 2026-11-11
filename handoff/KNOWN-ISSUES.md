@@ -1,6 +1,10 @@
 # Known issues
 
-## 1. The checker hangs on "READING THE CHAIN…" in the browser (blocking)
+## 1. RESOLVED 2026-11-11 22:50 UTC: the checker hung on "READING THE CHAIN…" in the browser
+
+**Cause:** the public RPC throttles bursts from browsers. A single request worked, but 12 parallel `eth_getLogs` calls timed out (`net::ERR_TIMED_OUT`). **Fix:** the check now runs on our server at `web/src/app/api/check/route.ts` (one browser request, CDN-cached for 30s). The window scan is capped at 4 concurrent requests, and pool keys are cached. The route answers in about 1s.
+
+Original notes:
 
 **Symptom.** `http://localhost:3311/check?pool=0x71ef4106340f0a3b9c19ec994eef4fc44a1d2513f38faac39d7636b156548c79` (production build served with `pnpm start -p 3311`) never leaves the loading state. No console errors or warnings appear. The network panel shows about 16 `POST https://rpc.mainnet.chain.robinhood.com/` requests, all returning HTTP 200.
 

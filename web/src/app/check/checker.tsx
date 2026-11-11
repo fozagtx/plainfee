@@ -3,10 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type FormEvent, useState } from "react";
-import { useAccount, usePublicClient } from "wagmi";
+import { useAccount } from "wagmi";
 import { Card, FeeReadout, Label, StatusDot, buttonClass, cx } from "@/components/ui";
 import { MAIN_WIF_POOL_ID, PLAINFEE } from "@/lib/addresses";
-import { TOLERANCE_BPS, addressUrl, checkPool, isPoolId, txUrl, type PoolCheck } from "@/lib/pool-check";
+import { TOLERANCE_BPS, addressUrl, isPoolId, txUrl, type PoolCheck } from "@/lib/pool-check";
 
 const EXAMPLES = [
   { id: MAIN_WIF_POOL_ID, label: "MAIN $WIF POOL" },
@@ -22,16 +22,15 @@ export function Checker() {
   const params = useSearchParams();
   const poolParam = params.get("pool") ?? "";
   const [draft, setDraft] = useState(poolParam);
-  const client = usePublicClient();
   const { address } = useAccount();
 
   const active = isPoolId(poolParam) ? poolParam.toLowerCase() : null;
   const query = useQuery({
     queryKey: ["check", active, address],
-    queryFn: () => checkPool(client!, active!, address),
-    enabled: Boolean(active && client),
+    queryFn: () => fetchCheck(active!, address),
+    enabled: Boolean(active),
     staleTime: 30_000,
-    retry: 1,
+    retry: false,
   });
 
   const go = (id: string) => {
@@ -96,6 +95,15 @@ export function Checker() {
       {query.data && <Result data={query.data} />}
     </div>
   );
+}
+
+/** One request to our own server, which reads the chain and caches the answer. */
+async function fetchCheck(pool: string, trader?: string): Promise<PoolCheck> {
+  const qs = new URLSearchParams({ pool, ...(trader ? { trader } : {}) });
+  const res = await fetch(`/api/check?${qs}`);
+  const body = await res.json();
+  if (!res.ok) throw new Error(body.error ?? "The chain could not be read.");
+  return body as PoolCheck;
 }
 
 function shortError(err: unknown) {
