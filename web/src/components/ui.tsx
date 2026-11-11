@@ -59,8 +59,18 @@ export function Label({ children, className }: { children: ReactNode; className?
  * The signature component: the fee a pool shows next to the fee a swap really pays.
  * When they differ, the real number gets the highlight marker.
  */
-export function FeeReadout({ shownBps, paidBps }: { shownBps: number; paidBps: number }) {
-  const hidden = paidBps - shownBps;
+export function FeeReadout({
+  shownBps,
+  paidBps,
+  toleranceBps = 1,
+}: {
+  shownBps: number;
+  paidBps: number;
+  /** Gaps up to this are rounding and price impact, not a hidden fee. */
+  toleranceBps?: number;
+}) {
+  const gap = paidBps - shownBps;
+  const hidden = gap > toleranceBps ? gap : 0;
   const fmt = (bps: number) => `${(bps / 100).toFixed(2)}%`;
   return (
     <Card className="grid grid-cols-2 divide-x divide-border">

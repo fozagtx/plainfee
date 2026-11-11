@@ -15,4 +15,8 @@ export const ADDRESSES = {
 export const PLAINFEE = {
   hook: process.env.NEXT_PUBLIC_PLAINFEE_HOOK as Address | undefined,
   vault: process.env.NEXT_PUBLIC_PLAINFEE_VAULT as Address | undefined,
+  poolId: process.env.NEXT_PUBLIC_PLAINFEE_POOL_ID as `0x${string}` | undefined,
 } as const;
+
+/** The busiest $WIF pool on the chain (Uniswap v4 ETH/WIF). Used as the checker's first example. */
+export const MAIN_WIF_POOL_ID = "0x71ef4106340f0a3b9c19ec994eef4fc44a1d2513f38faac39d7636b156548c79" as const;

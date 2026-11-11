@@ -1,5 +1,7 @@
 # HANDOFF.md
 
+> **Latest full handoff: [`handoff/README.md`](handoff/README.md)** (2026-11-11, about 19:35 UTC). It has the complete TODO list, known issues and the session log. Start there.
+
 **Last updated:** 2026-11-11 (contracts session)
 **Deadline:** submissions close **2026-11-12 17:30 UTC**, about 25h from this update.
 

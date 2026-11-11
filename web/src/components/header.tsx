@@ -2,7 +2,7 @@ import Link from "next/link";
 
 /** Flip `live` as each route ships, so the public site never links to a 404. */
 const NAV = [
-  { href: "/check", label: "CHECK A POOL", live: false },
+  { href: "/check", label: "CHECK A POOL", live: true },
   { href: "/swap", label: "SWAP", live: false },
   { href: "/lock", label: "LOCK WIF", live: false },
   { href: "/burns", label: "BURNS", live: false },
