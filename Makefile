@@ -45,6 +45,6 @@ web-build: ## Production build of the web app
 	cd $(WEB) && pnpm build
 
 web-check: ## Lint and typecheck the web app
-	cd $(WEB) && pnpm lint && pnpm exec tsc --noEmit
+	cd $(WEB) && pnpm lint && pnpm typecheck
 
 check: build test web-check ## What CI runs

@@ -16,7 +16,7 @@ export function Header() {
         <Link href="/" className="text-[17px] font-medium tracking-tight">
           Plainfee
         </Link>
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="flex min-w-0 items-center gap-1 overflow-x-auto">
           {NAV.map((item) => (
             <Link key={item.href} href={item.href} className="mono-control px-2 py-1.5 transition-chrome hover:bg-background">
               {item.label}

@@ -11,14 +11,30 @@ export const metadata: Metadata = {
 export default function CheckPage() {
   return (
     <section className="flex flex-col gap-10 py-8 md:py-12">
-      <div className="flex max-w-(--container-narrow) flex-col gap-4">
-        <Label>COST CHECKER · UNISWAP V4 · ROBINHOOD CHAIN</Label>
-        <h1 className="measure-heading text-3xl md:text-4xl">Check what a pool really charges.</h1>
-        <p className="lede">
-          Paste a pool ID. We read the fee the pool writes into its own swap records, then quote a swap too small to move
-          the price and measure what it actually costs. A hook can take value after the swap without it showing up in the
-          fee. This page shows both numbers side by side.
-        </p>
+      <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,520px)] lg:gap-16">
+        <div className="flex max-w-(--container-narrow) flex-col gap-4">
+          <Label>COST CHECKER · UNISWAP V4 · ROBINHOOD CHAIN</Label>
+          <h1 className="measure-heading text-3xl md:text-4xl">Check what a pool really charges.</h1>
+          <p className="lede">
+            A hook can take value after a swap without it showing up in the pool&apos;s fee. Paste any pool ID and see
+            both numbers side by side.
+          </p>
+        </div>
+        <ol className="divide-y divide-border border border-border bg-card">
+          {[
+            ["SHOWN FEE", "The fee the pool writes into the fee field of its own Swap events."],
+            ["PAID FEE", "We quote a swap of 0.001% of the pool's depth, too small to move the price, and compare it with the spot price."],
+            ["PERMISSIONS", "We read the hook's permissions from the last 14 bits of its address. ReturnDelta bits let a hook take tokens outside the fee."],
+          ].map(([k, v], i) => (
+            <li key={k} className="flex gap-4 p-4">
+              <span className="mono-xs w-6 shrink-0 pt-0.5 text-subtle">0{i + 1}</span>
+              <div className="flex flex-col gap-1">
+                <span className="mono-control">{k}</span>
+                <span className="text-sm text-subtle">{v}</span>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
       <Suspense fallback={null}>
         <Checker />

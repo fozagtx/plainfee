@@ -63,17 +63,19 @@ export function FeeReadout({
   shownBps,
   paidBps,
   toleranceBps = 1,
+  className,
 }: {
   shownBps: number;
   paidBps: number;
   /** Gaps up to this are rounding and price impact, not a hidden fee. */
   toleranceBps?: number;
+  className?: string;
 }) {
   const gap = paidBps - shownBps;
   const hidden = gap > toleranceBps ? gap : 0;
   const fmt = (bps: number) => `${(bps / 100).toFixed(2)}%`;
   return (
-    <Card className="grid grid-cols-2 divide-x divide-border">
+    <Card className={cx("grid grid-cols-2 divide-x divide-border", className)}>
       <div className="flex flex-col gap-2 p-4">
         <Label>SHOWN FEE</Label>
         <span className="figure text-4xl">{fmt(shownBps)}</span>
