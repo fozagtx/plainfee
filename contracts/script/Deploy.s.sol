@@ -17,7 +17,7 @@ import {WifLock} from "../src/WifLock.sol";
 /// @notice Deploys WifLock, mines the hook salt, deploys PlainfeeHook (which deploys BurnVault),
 ///         initializes the ETH/WIF pool and writes deployments/<chainid>.json.
 /// @dev Env: SQRT_PRICE_X96 (required; read it from the main existing WIF pool),
-///      TIER1_WIF / TIER2_WIF / TIER3_WIF (whole WIF; default 10k / 100k / 1M).
+///      TIER1_WIF / TIER2_WIF / TIER3_WIF (whole WIF; default 500 / 2,500 / 10,000).
 ///      Dry run:  forge script script/Deploy.s.sol --rpc-url robinhood --account plainfee
 ///      Live:     add --broadcast --verify
 contract Deploy is Script {
@@ -28,9 +28,9 @@ contract Deploy is Script {
         require(block.chainid == Addresses.CHAIN_ID, "wrong chain");
         uint160 sqrtPriceX96 = uint160(vm.envUint("SQRT_PRICE_X96"));
         uint256[3] memory thresholds = [
-            vm.envOr("TIER1_WIF", uint256(10_000)) * 1e18,
-            vm.envOr("TIER2_WIF", uint256(100_000)) * 1e18,
-            vm.envOr("TIER3_WIF", uint256(1_000_000)) * 1e18
+            vm.envOr("TIER1_WIF", uint256(500)) * 1e18,
+            vm.envOr("TIER2_WIF", uint256(2_500)) * 1e18,
+            vm.envOr("TIER3_WIF", uint256(10_000)) * 1e18
         ];
         IPoolManager manager = IPoolManager(Addresses.POOL_MANAGER);
 

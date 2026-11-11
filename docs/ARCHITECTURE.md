@@ -52,18 +52,18 @@ It extends `BaseOverrideFee` from OpenZeppelin `uniswap-hooks` v1.2.1.
 | `afterSwap` / `afterSwapReturnDelta` | **no** | No slice taken on the way out. This is the hidden-fee mechanism. |
 | everything else | no | |
 
-**Fee schedule (Decided structure, Open numbers).** Fees are in pips (1e-6), the unit v4 uses.
+**Fee schedule (Decided 2026-11-11).** Fees are in pips (1e-6), the unit v4 uses.
 
 | Locked WIF (by `tx.origin`) | Fee | Pips |
 |---|---|---|
 | 0 | 0.30% | 3000 |
-| ≥ 10,000 | 0.25% | 2500 |
-| ≥ 100,000 | 0.20% | 2000 |
-| ≥ 1,000,000 | 0.15% | 1500 |
+| ≥ 500 | 0.25% | 2500 |
+| ≥ 2,500 | 0.20% | 2000 |
+| ≥ 10,000 | 0.15% | 1500 |
 
 - All values are `immutable`. There is no owner, no setter and no upgrade path.
 - **Invariant:** for every swap, `fee <= BASE_FEE`, and discounts only ever lower it.
-- **Open:** the tier thresholds are to be tuned to the WIF price at deploy time (Dexscreener pool `0x71ef…8c79`).
+- **Decided:** thresholds are 500 / 2,500 / 10,000 WIF (about $0.58 / $2.90 / $11.60 at $0.00116), sized for a $3 demo budget. They are constructor arguments and can't change after deploy.
 
 **Why `tx.origin` (Decided, documented in SECURITY.md).** In v4, `sender` is the router, not the trader. `hookData` can be spoofed: anyone could name a whale and take the whale's discount. `tx.origin` can't be spoofed by a third party. The cost is that smart-contract wallets and relayed transactions get the base fee. That is acceptable, because the worst case is paying the advertised fee, never more.
 

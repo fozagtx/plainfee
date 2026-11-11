@@ -38,7 +38,6 @@ Not started:
 
 ## Blockers / needs from the owner
 
-- **GitHub:** the repo is local only, with the scaffold committed on `main` and work continuing on `feat/contracts`. Creating the public `fozagtx/plainfee` repo needs the owner's explicit go-ahead.
-- Real ETH and WIF on Robinhood Chain for the deploy, the seed and the demo transactions.
-- A decision on the tier thresholds once the WIF price is known.
+- **GitHub:** public at https://github.com/fozagtx/plainfee (main and feat/contracts pushed).
+- About 0.0007 ETH + 1,500 WIF on Robinhood Chain (the $3 plan in SCRATCHPAD), in a keystore account `plainfee`.
 - Optional: an Alchemy or QuickNode RPC key (the public RPC is rate-limited).

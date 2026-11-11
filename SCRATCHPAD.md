@@ -37,3 +37,17 @@ Working notes. Anything here can be wrong. Move proven facts to MEMORY.md and de
 - `forge script` fails with "Chain 4663 not supported" if foundry.toml has an `[etherscan]` entry with `chain = 4663`. Verification flags now live in the Makefile `deploy` target.
 - A dry-run hook address, `0x…5880`, ends in bits `0x1880` = afterInitialize | beforeAddLiquidity | beforeSwap. Matches.
 - Harvest's own ETH→WIF swap pays the harvester's tier fee into the vault position. That fee burns on the next harvest.
+
+## WIF price check (2026-11-11, Dexscreener API)
+
+- Main pool `0x71ef…8c79` (v4 ETH/WIF, about $91k liquidity): 1 WIF = 0.0000005571 ETH = $0.001162. That implies ETH ≈ $2,086 and 1 ETH ≈ 1.795M WIF.
+- At that price the current thresholds are 10k WIF ≈ $12, 100k ≈ $116, 1M ≈ $1,162.
+- A $50 seed is about 0.012 ETH plus about 21.5k WIF.
+
+## $3 demo budget (decided 2026-11-11, owner)
+
+- Wallet needs about **0.0007 ETH + 1,500 WIF** (≈ $3 total).
+  - Seed: about 0.0004 ETH + about 650 WIF (≈ $1.50), withdrawable.
+  - Lock 500 WIF (≈ $0.58) to reach the 0.25% tier; it comes back after the cooldown.
+  - Swaps of about $0.05 each; harvest burns the fees.
+  - Gas: about 0.0003 ETH (the deploy simulated at about 0.0002 ETH).
