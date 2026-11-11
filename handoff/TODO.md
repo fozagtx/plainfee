@@ -11,7 +11,7 @@ Judging criteria, verbatim: "a real reason to use $wif, a flywheel that holds up
 See KNOWN-ISSUES #1 for symptoms and leads.
 **Done when:** `/check?pool=0x71ef…8c79` shows SHOWN 0.00% / PAID 1.00% with the lime marker and the permissions table in a real browser, within about 5s.
 
-## 2. Design pass on every page (owner's top complaint, $0)
+## 2. 🟡 MOSTLY DONE 2026-11-11 23:10 UTC: design pass. Home redesigned (live proof hero, how-it-works, tiers, flywheel, verify, footer) and check page has an explainer card. Waiting for owner feedback.
 
 The owner wants the reference system applied properly, in light theme ("white mood"), and the product to feel premium. Reference: `DESIGN.md`, plus the full paste in SESSION-LOG.
 
@@ -70,6 +70,8 @@ The owner has very little money. **Never propose more than the $3 plan.**
 - Merge `feat/checker` into `main`, deploy, and keep the site up until 2026-11-16.
 
 ## 6. Nice to have
+
+- ✅ CI is green (pnpm version read from web/package.json; `pnpm typecheck` runs `next typegen` first).
 
 - `vercel git connect` so pushes auto-deploy.
 - A private RPC key (QuickNode or Alchemy) if the public RPC rate-limits the checker.
