@@ -40,4 +40,6 @@ Requirements: Foundry ≥ 1.5, Node ≥ 24, pnpm 10.
 
 ## Status
 
+Live site: https://plainfee.vercel.app
+
 In active development for the World Is Flat hackathon. Contract addresses, a demo and real transactions will be listed here when deployed.

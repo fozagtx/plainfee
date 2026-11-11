@@ -39,5 +39,6 @@ Not started:
 ## Blockers / needs from the owner
 
 - **GitHub:** public at https://github.com/fozagtx/plainfee (main and feat/contracts pushed).
+- **Vercel:** live at https://plainfee.vercel.app (project `plainfee`, root `web/`, deployed from the CLI with `vercel deploy --prod` in `web/`). Header links are hidden until each route ships: flip `live` in `web/src/components/header.tsx`.
 - About 0.0007 ETH + 1,500 WIF on Robinhood Chain (the $3 plan in SCRATCHPAD), in a keystore account `plainfee`.
 - Optional: an Alchemy or QuickNode RPC key (the public RPC is rate-limited).

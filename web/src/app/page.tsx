@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { buttonClass, Label } from "@/components/ui";
 
 export default function Home() {
@@ -13,9 +12,14 @@ export default function Home() {
         </p>
       </div>
       <div className="flex flex-wrap gap-2">
-        <Link href="/check" className={buttonClass("primary")}>
-          CHECK A POOL
-        </Link>
+        <a
+          href="https://github.com/fozagtx/plainfee"
+          target="_blank"
+          rel="noreferrer"
+          className={buttonClass("primary")}
+        >
+          READ THE CODE
+        </a>
         <a
           href="https://bitquery.io/investigations/uniswap-v4-hooks-robinhood-chain"
           target="_blank"
