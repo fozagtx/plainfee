@@ -23,9 +23,9 @@ runs = 5_000
 robinhood = "${ROBINHOOD_RPC_URL}"
 robinhood_testnet = "${ROBINHOOD_TESTNET_RPC_URL}"
 
-[etherscan]
-# Blockscout verification. The key can be any non-empty string.
-robinhood = { key = "${BLOCKSCOUT_API_KEY}", url = "https://robinhoodchain.blockscout.com/api/", chain = 4663 }
+# Blockscout verification is passed as flags (see the Makefile `deploy` target):
+#   --verify --verifier blockscout --verifier-url https://robinhoodchain.blockscout.com/api/
+# An [etherscan] entry with `chain = 4663` makes forge script fail with "Chain 4663 not supported".
 
 [fmt]
 line_length = 110

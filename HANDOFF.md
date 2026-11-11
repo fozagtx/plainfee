@@ -1,6 +1,6 @@
 # HANDOFF.md
 
-**Last updated:** 2026-11-11 16:10 UTC
+**Last updated:** 2026-11-11 (contracts session)
 **Deadline:** submissions close **2026-11-12 17:30 UTC**, about 25h from this update.
 
 ## State
@@ -19,25 +19,26 @@ Done and verified:
   - `pnpm lint`, `tsc` and `pnpm build` all pass.
 - **Docs:** `docs/ARCHITECTURE.md` (spec), `DESIGN.md`, `AGENTS.md`, `MEMORY.md`, `SCRATCHPAD.md`.
 
+- **Contracts (branch `feat/contracts`):** `WifLock`, `PlainfeeHook` (deploys `BurnVault`), `BurnVault`.
+  - `make test`: 30 unit and fuzz tests pass (tier boundaries, fee ≤ base, flash-lock blocked, tx.origin discount, vault-only liquidity, other pools rejected, principal vs fees, harvest burns, slippage).
+  - `make test-fork`: 5 pass, including `FullPath` on live mainnet: real PoolManager, real WIF; Swap event shows 3000 then 1500 after a lock; harvest lowers real WIF supply; principal withdraws.
+- **Scripts:** `script/Deploy.s.sol` mines the salt (HookMiner against the CREATE2 deployer), deploys everything, initializes the pool and writes `deployments/4663.json` on a real broadcast only. `script/Seed.s.sol` deposits liquidity. `make deploy-dry` simulates on mainnet: about 5.0M gas, about 0.0002 ETH.
+
 Not started:
 
-- Contracts: PlainfeeHook, WifLock, BurnVault, deploy and salt-mining scripts.
 - Web routes: `/check`, `/swap`, `/lock`, `/burns`. The header links to them, so they 404 until built.
 - SECURITY.md, the README sections for the submission, the demo video, the deploy and the Vercel project.
 
 ## Next steps, in order
 
-1. **Contracts (branch `feat/contracts`):**
-   - WifLock and its tests, then PlainfeeHook and its tests (tier boundaries, fee ≤ base, vault-only liquidity, flash-lock blocked).
-   - Then BurnVault and its tests (principal and fees separated, harvest burns).
-   - Then a fork test of the full path on mainnet: init pool → deposit → swap → harvest → supply down.
-2. **Scripts:** `script/MineHook.s.sol` (HookMiner salt) and `script/Deploy.s.sol` (WifLock → hook at the mined salt → BurnVault → initialize ETH/WIF at the market price). Each writes `deployments/4663.json`.
-3. **Owner checkpoint:** confirm seed size and tier thresholds (see SCRATCHPAD), then deploy to mainnet, verify on Blockscout, seed, and make the first swap, lock and harvest.
-4. **Web, in order:** `/check` (the demo centrepiece), `/swap`, `/lock`, `/burns`. Then the Vercel deploy.
-5. **Submission:** SECURITY.md, README, 2-minute video (beats in SCRATCHPAD), the form at worldisflat.fun/build. Post an update in the project dispatches.
+1. **Owner checkpoint:** read `sqrtPriceX96` from the main WIF pool (SCRATCHPAD), confirm seed size and tier thresholds (see SCRATCHPAD), then deploy to mainnet, verify on Blockscout, seed, and make the first swap, lock and harvest.
+2. **Web, in order:** `/check` (the demo centrepiece), `/swap`, `/lock`, `/burns`. Then the Vercel deploy.
+   - Before the web work, merge `feat/contracts` into `main`.
+3. **Submission:** SECURITY.md, README, 2-minute video (beats in SCRATCHPAD), the form at worldisflat.fun/build. Post an update in the project dispatches.
 
 ## Blockers / needs from the owner
 
+- **GitHub:** the repo is local only, with the scaffold committed on `main` and work continuing on `feat/contracts`. Creating the public `fozagtx/plainfee` repo needs the owner's explicit go-ahead.
 - Real ETH and WIF on Robinhood Chain for the deploy, the seed and the demo transactions.
 - A decision on the tier thresholds once the WIF price is known.
 - Optional: an Alchemy or QuickNode RPC key (the public RPC is rate-limited).

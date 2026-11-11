@@ -67,18 +67,25 @@ It extends `BaseOverrideFee` from OpenZeppelin `uniswap-hooks` v1.2.1.
 
 **Why `tx.origin` (Decided, documented in SECURITY.md).** In v4, `sender` is the router, not the trader. `hookData` can be spoofed: anyone could name a whale and take the whale's discount. `tx.origin` can't be spoofed by a third party. The cost is that smart-contract wallets and relayed transactions get the base fee. That is acceptable, because the worst case is paying the advertised fee, never more.
 
+**Built-in restrictions (Decided, 2026-11-11).**
+- PlainfeeHook deploys BurnVault in its own constructor. The vault's `hook` is simply `msg.sender`, so the two are linked with no owner and no circular address prediction.
+- `afterInitialize` accepts only the vault's ETH/WIF key (dynamic fee, tick spacing 60). No other pool can use the hook, so every Plainfee pool burns WIF.
+- The tier thresholds are constructor arguments (immutable), set from `TIER1_WIF`/`TIER2_WIF`/`TIER3_WIF` at deploy time.
+
 ### WifLock — `contracts/src/WifLock.sol`
 
 - `lock(amount)` moves WIF in. `requestUnlock()` starts a cooldown. `withdraw()` returns the WIF after the cooldown ends.
 - `weightOf(account)` counts only WIF that was locked at least `WARMUP` ago and has no pending unlock.
 - **Decided:** `WARMUP = 1 hour` and `COOLDOWN = 3 days`. Together they block a flash-lock: borrow WIF, lock it, swap at the discount and unlock, all in one transaction.
 - No owner. Locked WIF can only leave to its locker.
+- **Decided:** a position is `matured` plus one `pending` bucket. Topping up resets the warmup of the pending bucket only; WIF that has already matured keeps counting. `requestUnlock` covers the whole position and drops its weight to 0 at once. You can't lock more while an unlock is pending.
 
 ### BurnVault — `contracts/src/BurnVault.sol`
 
 - It is the **only** LP in Plainfee pools: one full-range position, which the vault holds directly through `PoolManager.unlock` rather than through the PositionManager.
 - Anyone can `deposit` liquidity and `withdraw` their own principal, pro rata by shares.
 - v4's `modifyLiquidity` returns `(callerDelta, feesAccrued)`. The vault separates principal from fees on **every** call (deposit, withdraw and harvest), so fees can never leave with principal.
+- **Decided:** shares are liquidity units. Fees never compound into the position, so 1 share is always 1 unit of liquidity. Collected fees sit in `accruedEth` / `accruedWif` until `harvest`.
 - `harvest(minWifOut)` can be called by anyone. It collects accrued fees, swaps the non-WIF side to WIF through the same pool, then calls `WIF.burn(balance)`. It emits `Burned(wifAmount, ethIn, caller)`.
 - **Decided:** 100% of fees burn in v1. LPs earn nothing. We seed liquidity ourselves for the hackathon.
 - **Open (v2):** an immutable split, for example 50% burn and 50% to LPs. It would make the flywheel self-sustaining past the seed.

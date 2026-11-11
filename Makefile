@@ -4,7 +4,7 @@ CONTRACTS := contracts
 WEB := web
 ENV := set -a; [ -f $(CONTRACTS)/.env ] && source $(CONTRACTS)/.env; set +a;
 
-.PHONY: help install build test test-fork test-all fmt fmt-check web-dev web-build web-check check
+.PHONY: help install build test test-fork test-all deploy-dry deploy fmt fmt-check web-dev web-build web-check check
 
 help: ## List targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-12s %s\n", $$1, $$2}'
@@ -23,6 +23,13 @@ test-fork: ## Fork tests against Robinhood Chain mainnet
 	$(ENV) cd $(CONTRACTS) && forge test --match-path 'test/fork/*'
 
 test-all: test test-fork ## Everything
+
+deploy-dry: ## Simulate the mainnet deploy (needs SQRT_PRICE_X96)
+	$(ENV) cd $(CONTRACTS) && forge script script/Deploy.s.sol --rpc-url robinhood
+
+deploy: ## Deploy to mainnet for real. Spends ETH: owner approval first
+	$(ENV) cd $(CONTRACTS) && forge script script/Deploy.s.sol --rpc-url robinhood --account plainfee --broadcast \
+		--verify --verifier blockscout --verifier-url https://robinhoodchain.blockscout.com/api/
 
 fmt: ## Format Solidity and TS
 	cd $(CONTRACTS) && forge fmt

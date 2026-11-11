@@ -14,7 +14,7 @@ Working notes. Anything here can be wrong. Move proven facts to MEMORY.md and de
 
 - The low 14 bits of the hook address are the permission flags.
 - We want `AFTER_INITIALIZE` (1 << 12), `BEFORE_ADD_LIQUIDITY` (1 << 11) and `BEFORE_SWAP` (1 << 7).
-- Mine the salt with HookMiner against the CREATE2 deployer `0x4e59b44847b379578588920cA78FbF26c0B4956C`.
+- Mined in `Deploy.s.sol` (no separate MineHook script). Mine the salt with HookMiner against the CREATE2 deployer `0x4e59b44847b379578588920cA78FbF26c0B4956C`.
 - Verified 2026-11-11 against `lib/v4-periphery/lib/v4-core/src/libraries/Hooks.sol`. The bits that must stay **off** are `BEFORE_SWAP_RETURNS_DELTA` (1 << 3) and `AFTER_SWAP_RETURNS_DELTA` (1 << 2).
 
 ## Harvest math notes
@@ -31,3 +31,9 @@ Working notes. Anything here can be wrong. Move proven facts to MEMORY.md and de
 4. 0:50. Lock WIF, and the tier drops to 0.25%. Swap, and the Swap event on Blockscout shows `fee = 2500`.
 5. 1:20. Harvest. The burn tx and `/burns` total tick up.
 6. 1:40. Flywheel diagram, repo, SECURITY.md.
+
+## Notes from the contracts session
+
+- `forge script` fails with "Chain 4663 not supported" if foundry.toml has an `[etherscan]` entry with `chain = 4663`. Verification flags now live in the Makefile `deploy` target.
+- A dry-run hook address, `0x…5880`, ends in bits `0x1880` = afterInitialize | beforeAddLiquidity | beforeSwap. Matches.
+- Harvest's own ETH→WIF swap pays the harvester's tier fee into the vault position. That fee burns on the next harvest.
