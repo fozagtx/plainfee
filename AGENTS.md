@@ -12,7 +12,7 @@ It is the entry for the **World Is Flat hackathon** (one prize, 10,000 USDG).
 - The app must stay live until **2026-11-16 17:30 UTC**.
 - Rules: https://worldisflat.fun/build/rules
 
-The spec is `docs/ARCHITECTURE.md`. The visual language is `DESIGN.md`.
+The visual language is `DESIGN.md`.
 
 ## Session files (keep them current)
 
@@ -21,7 +21,6 @@ The spec is `docs/ARCHITECTURE.md`. The visual language is `DESIGN.md`.
 | `HANDOFF.md` | Where things stand, what's next, blockers. The next agent starts here. | End of every session, and before any long-running step |
 | `MEMORY.md` | Durable decisions and facts, with the reason for each | A decision is made or a fact is verified |
 | `SCRATCHPAD.md` | Working notes, half-formed ideas, command output worth keeping | Freely. Prune when a note graduates to MEMORY or is wrong |
-| `docs/ARCHITECTURE.md` | The spec. Mark changes **Decided** or **Open** | A contract interface or flow changes |
 | `DESIGN.md` | Tokens and component specs | Before changing `web/src/app/globals.css` |
 
 ## Layout
@@ -37,7 +36,6 @@ web/                Next.js 16, React 19, Tailwind v4, wagmi 3, viem 2
   src/app/          routes;  globals.css = design tokens
   src/components/   ui.tsx primitives, header, providers
   src/lib/          addresses, wagmi config
-docs/               ARCHITECTURE.md
 ```
 
 ## Commands

@@ -22,7 +22,6 @@ There's also a free **cost checker**: paste any v4 pool on the chain and see its
 |---|---|
 | `contracts/` | Foundry: hook, WIF lock, burn vault, fork tests against mainnet |
 | `web/` | Next.js app: checker, swap, lock, burns |
-| `docs/ARCHITECTURE.md` | Engineering spec |
 | `DESIGN.md` | Design system |
 
 ## Run it

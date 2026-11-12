@@ -1,7 +1,5 @@
 # HANDOFF.md
 
-> **Latest full handoff: [`handoff/README.md`](handoff/README.md)** (2026-11-11, about 19:35 UTC). It has the complete TODO list, known issues and the session log. Start there.
-
 **Last updated:** 2026-11-11 (contracts session)
 **Deadline:** submissions close **2026-11-12 17:30 UTC**, about 25h from this update.
 
@@ -19,7 +17,7 @@ Done and verified:
   - Primitives are in `web/src/components/ui.tsx`: Button, buttonClass, Tag, StatusDot, Card, Label, FeeReadout.
   - The floating header, `/` (the claim) and `/system` (specimen) exist.
   - `pnpm lint`, `tsc` and `pnpm build` all pass.
-- **Docs:** `docs/ARCHITECTURE.md` (spec), `DESIGN.md`, `AGENTS.md`, `MEMORY.md`, `SCRATCHPAD.md`.
+- **Docs:** `DESIGN.md`, `AGENTS.md`, `MEMORY.md`, `SCRATCHPAD.md`.
 
 - **Contracts (branch `feat/contracts`):** `WifLock`, `PlainfeeHook` (deploys `BurnVault`), `BurnVault`.
   - `make test`: 30 unit and fuzz tests pass (tier boundaries, fee ≤ base, flash-lock blocked, tx.origin discount, vault-only liquidity, other pools rejected, principal vs fees, harvest burns, slippage).

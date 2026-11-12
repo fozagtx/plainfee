@@ -22,6 +22,3 @@ CLAUDE.md
 
 # os
 .DS_Store
-
-# Raw session transcripts: private, never pushed to the public repo
-handoff/session/
