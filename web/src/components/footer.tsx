@@ -1,8 +1,6 @@
 import { PLAINFEE } from "@/lib/addresses";
 import { addressUrl } from "@/lib/pool-check";
 
-const REPO = "https://github.com/fozagtx/plainfee";
-
 export function Footer() {
   const contracts: Array<[string, string | undefined]> = [
     ["HOOK", PLAINFEE.hook],
@@ -29,17 +27,6 @@ export function Footer() {
               </div>
             ))}
           </dl>
-        </div>
-        <div className="t-small flex items-center gap-4 text-ink-soft">
-          <a href={`${REPO}/blob/main/LICENSE`} target="_blank" rel="noreferrer" className="link">
-            MIT
-          </a>
-          <a href={REPO} target="_blank" rel="noreferrer" className="link">
-            GitHub
-          </a>
-          <a href="https://worldisflat.fun/build" target="_blank" rel="noreferrer" className="link">
-            World Is Flat
-          </a>
         </div>
       </div>
     </footer>

@@ -354,7 +354,7 @@ Hero                              "The fee you see is the fee you pay."
 ─────────────────────────────────────────────────────────────
 §5  Every fee burns WIF           static flywheel (§5.5) + burn counter — LOUD register
 ─────────────────────────────────────────────────────────────
-Footer                            MIT · contract addresses
+Footer                            contract addresses only, no links
 ```
 
 Note the order: the problem and the tool come **before** the token. A reader
