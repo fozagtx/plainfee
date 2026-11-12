@@ -156,14 +156,11 @@ export function FeeReadout({
   );
 }
 
-/** A section opener with its § number (DESIGN.md §2). */
-export function SectionHead({ n, title, children }: { n: number; title: string; children?: ReactNode }) {
+/** A section opener: heading and an optional one-paragraph lede. */
+export function SectionHead({ title, children }: { title: string; children?: ReactNode }) {
   return (
     <div className="flex max-w-(--container-content) flex-col gap-3">
-      <h2 className="t-h1">
-        <span className="figure mr-3 text-ink-soft">§{n}</span>
-        {title}
-      </h2>
+      <h2 className="t-h1">{title}</h2>
       {children && <p className="measure text-ink-soft">{children}</p>}
     </div>
   );

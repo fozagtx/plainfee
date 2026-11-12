@@ -255,7 +255,7 @@ const TOC = [
   ["burn", "Every fee burns WIF"],
 ] as const;
 
-/** The sticky § rail. Shown at 1280px and wider only. */
+/** The sticky section rail. Shown at 1280px and wider only. */
 export function TocRail() {
   const [active, setActive] = useState<string>(TOC[0][0]);
   useEffect(() => {
@@ -273,10 +273,10 @@ export function TocRail() {
   return (
     <nav aria-label="Sections" className="sticky top-28 hidden w-44 shrink-0 self-start min-[1280px]:block">
       <ol className="flex flex-col gap-2">
-        {TOC.map(([id, label], i) => (
+        {TOC.map(([id, label]) => (
           <li key={id}>
             <a href={`#${id}`} className={cx("t-micro transition-chrome hover:text-ink", active === id ? "text-ink" : "text-ink-soft")}>
-              §{i + 1} {label}
+              {label}
             </a>
           </li>
         ))}

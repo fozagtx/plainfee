@@ -32,7 +32,7 @@ export default function Home() {
         <TocRail />
         <div className="flex min-w-0 flex-1 flex-col">
           <Section id="problem">
-            <SectionHead n={1} title="The problem">
+            <SectionHead title="The problem">
               Most hooked volume on this chain runs through one contract that shows 0% and takes about 2% after the swap,
               where the pool&apos;s records never show it (
               <a href={BITQUERY} target="_blank" rel="noreferrer" className="link">
@@ -50,7 +50,7 @@ export default function Home() {
       {/* §2 goes full-bleed: the widest thing on the site */}
       <section id="check" className="flex scroll-mt-24 flex-col gap-8 border-t border-rule py-24">
         <div className="mx-auto w-full max-w-[1400px] px-4 min-[1280px]:pl-[calc(11rem+3.5rem)]">
-          <SectionHead n={2} title="Check any pool">
+          <SectionHead title="Check any pool">
             The busiest Uniswap v4 pools on Robinhood Chain right now, each measured the same way. Sorted by gap, largest
             first. Paste any pool id to check one that isn&apos;t listed.
           </SectionHead>
@@ -62,7 +62,7 @@ export default function Home() {
         <div className="hidden w-44 shrink-0 min-[1280px]:block" aria-hidden />
         <div className="flex min-w-0 flex-1 flex-col">
           <Section id="charges">
-            <SectionHead n={3} title="How Plainfee charges">
+            <SectionHead title="How Plainfee charges">
               The fee is set in <code className="figure">beforeSwap</code> through the pool&apos;s own fee field, so it
               lands in every Swap event. The permissions that would let the hook take more are not in its address.
             </SectionHead>
@@ -73,7 +73,7 @@ export default function Home() {
           </Section>
 
           <Section id="lock" loud>
-            <SectionHead n={4} title="Lock WIF, pay less" />
+            <SectionHead title="Lock WIF, pay less" />
             <div className="max-w-(--container-data)">
               <TierLadder />
               <div className="mt-6">
@@ -85,7 +85,7 @@ export default function Home() {
           </Section>
 
           <Section id="burn" loud>
-            <SectionHead n={5} title="Every fee burns WIF" />
+            <SectionHead title="Every fee burns WIF" />
             <div className="max-w-(--container-data)">
               <Flywheel />
               <div className="mt-6 flex flex-wrap gap-2">

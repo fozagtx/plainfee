@@ -94,8 +94,7 @@ Numbers are the product. The type system exists to make them comparable.
 | `data-lg` | 48 / 1, mono tabular | The two compared fees |
 | `data` | 15 / 1.4, mono tabular | Table figures |
 
-Headings carry a § number (`§1 The problem`). It tells the reader this page is
-a document with sections they can cite, not a funnel they're being moved through.
+Headings are plain words. No § signs, numbers or symbols in front of them.
 
 ---
 
@@ -161,7 +160,7 @@ A document, not a landing page.
 - Content column: **720px**. Prose stays inside it.
 - Data column: **1120px**. Tables and comparison panels break out.
 - The checker table goes **full-bleed**. It is the widest thing on the site.
-- Left rail: sticky § table of contents, `micro` type, `--ink-soft`, current
+- Left rail: sticky table of contents, `micro` type, `--ink-soft`, current
   section in `--ink`. Shown at 1280px and wider; below that it is gone — no hamburger.
 - Vertical rhythm on an 8px base. Section gap 96px, block gap 32px.
 - Separation is done with **1px `--rule` hairlines only**. No cards, no
