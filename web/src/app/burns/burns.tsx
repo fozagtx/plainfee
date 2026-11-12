@@ -134,7 +134,7 @@ function History({ vault }: { vault: Address }) {
             <span className="figure">{fmt(b.wif, 2)}</span>
             <span className="figure text-subtle">{fmt(b.eth, 8)} ETH</span>
             <span className="flex flex-col items-end gap-0.5 font-mono text-xs">
-              <a href={txUrl(b.hash)} target="_blank" rel="noreferrer" className="text-brand-readable underline">
+              <a href={txUrl(b.hash)} target="_blank" rel="noreferrer" className="link">
                 {short(b.hash)}
               </a>
               <a href={addressUrl(b.caller)} target="_blank" rel="noreferrer" className="text-subtle hover:underline">

@@ -67,12 +67,12 @@ function TierTable({ tiers, hook, wifLock }: { tiers?: Tier[]; hook?: Address; w
       </ul>
       <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs">
         {wifLock && (
-          <a href={addressUrl(wifLock)} target="_blank" rel="noreferrer" className="text-brand-readable underline">
+          <a href={addressUrl(wifLock)} target="_blank" rel="noreferrer" className="link">
             WIFLOCK CONTRACT
           </a>
         )}
         {hook && (
-          <a href={addressUrl(hook)} target="_blank" rel="noreferrer" className="text-brand-readable underline">
+          <a href={addressUrl(hook)} target="_blank" rel="noreferrer" className="link">
             HOOK CONTRACT
           </a>
         )}

@@ -13,9 +13,9 @@ export const ADDRESSES = {
 
 /** Plainfee's own contracts. Filled from contracts/deployments/4663.json after deploy. */
 export const PLAINFEE = {
-  hook: process.env.NEXT_PUBLIC_PLAINFEE_HOOK as Address | undefined,
-  vault: process.env.NEXT_PUBLIC_PLAINFEE_VAULT as Address | undefined,
-  poolId: process.env.NEXT_PUBLIC_PLAINFEE_POOL_ID as `0x${string}` | undefined,
+  hook: (process.env.NEXT_PUBLIC_PLAINFEE_HOOK || undefined) as Address | undefined,
+  vault: (process.env.NEXT_PUBLIC_PLAINFEE_VAULT || undefined) as Address | undefined,
+  poolId: (process.env.NEXT_PUBLIC_PLAINFEE_POOL_ID || undefined) as `0x${string}` | undefined,
 } as const;
 
 /** The busiest $WIF pool on the chain (Uniswap v4 ETH/WIF). Used as the checker's first example. */

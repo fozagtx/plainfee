@@ -1,19 +1,13 @@
 import { type NextRequest } from "next/server";
-import { createPublicClient, http, isAddress, type PublicClient } from "viem";
-import { robinhood } from "viem/chains";
+import { isAddress } from "viem";
 import { checkPool, isPoolId } from "@/lib/pool-check";
+import { serverClient as client } from "@/lib/server-client";
 
 /**
  * Runs the cost check on the server: the browser makes one request instead of a burst of RPC calls
  * (the public RPC throttles bursts from browsers), and the CDN caches each answer for 30 seconds.
  */
-const client = createPublicClient({
-  chain: robinhood,
-  transport: http(process.env.RPC_URL || process.env.NEXT_PUBLIC_RPC_URL || undefined, {
-    timeout: 15_000,
-    retryCount: 2,
-  }),
-}) as PublicClient;
+
 
 export async function GET(request: NextRequest) {
   const pool = request.nextUrl.searchParams.get("pool") ?? "";

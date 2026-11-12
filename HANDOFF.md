@@ -15,7 +15,7 @@ Done and verified:
 - **Web:**
   - Design tokens are in `web/src/app/globals.css`.
   - Primitives are in `web/src/components/ui.tsx`: Button, buttonClass, Tag, StatusDot, Card, Label, FeeReadout.
-  - The floating header, `/` (the claim) and `/system` (specimen) exist.
+  - The floating header, `/` (the claim) exist.
   - `pnpm lint`, `tsc` and `pnpm build` all pass.
 - **Docs:** `DESIGN.md`, `AGENTS.md`, `MEMORY.md`, `SCRATCHPAD.md`.
 

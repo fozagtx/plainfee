@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function BurnsPage() {
   return (
-    <section className="flex flex-col gap-10 py-8 md:py-12">
+    <section className="mx-auto flex w-full max-w-(--container-data) flex-col gap-10 px-4 py-12 md:py-16">
       <div className="flex max-w-(--container-narrow) flex-col gap-4">
         <Label>BURNS</Label>
-        <h1 className="measure-heading text-3xl md:text-4xl">Every fee ends up burned.</h1>
+        <h1 className="t-h1 measure-heading">Every fee ends up burned.</h1>
         <p className="lede">
           The pool&apos;s fees collect in the burn vault. Harvest turns them into $WIF and burns it. Each burn below is a
           transaction you can open.

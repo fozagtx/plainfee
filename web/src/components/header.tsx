@@ -1,19 +1,19 @@
 import Link from "next/link";
+import { LedgerStrip } from "@/components/ledger-strip";
 import { WalletButton } from "@/components/wallet";
 
-/** Flip `live` as each route ships, so the public site never links to a 404. */
 const NAV = [
-  { href: "/check", label: "CHECK A POOL", live: true },
-  { href: "/swap", label: "SWAP", live: true },
-  { href: "/lock", label: "LOCK WIF", live: true },
-  { href: "/burns", label: "BURNS", live: true },
-].filter((item) => item.live);
+  { href: "/check", label: "CHECK A POOL" },
+  { href: "/swap", label: "SWAP" },
+  { href: "/lock", label: "LOCK WIF" },
+  { href: "/burns", label: "BURNS" },
+];
 
 function NavLinks({ className }: { className?: string }) {
   return (
     <nav className={className}>
       {NAV.map((item) => (
-        <Link key={item.href} href={item.href} className="mono-control shrink-0 whitespace-nowrap px-2 py-1.5 transition-chrome hover:bg-background">
+        <Link key={item.href} href={item.href} className="mono-control shrink-0 rounded-sm px-2 py-1 whitespace-nowrap transition-chrome hover:bg-paper-sunk">
           {item.label}
         </Link>
       ))}
@@ -21,20 +21,23 @@ function NavLinks({ className }: { className?: string }) {
   );
 }
 
-/** Floating, fully bordered on desktop. On mobile it is flush, with the links on their own scrollable row. */
+/** The Ledger Strip, then a flat hairline-ruled nav. Sticky, never floating. */
 export function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-card md:top-4 md:mx-auto md:w-[calc(100%-2rem)] md:max-w-(--container-page) md:border">
-      <div className="flex h-12 items-center justify-between gap-4 px-4">
-        <Link href="/" className="text-[17px] font-medium tracking-tight">
-          Plainfee
-        </Link>
-        <div className="flex items-center gap-1">
-          <NavLinks className="hidden items-center gap-1 md:flex" />
-          <WalletButton />
+    <header className="sticky top-0 z-50 bg-paper">
+      <LedgerStrip />
+      <div className="border-b border-rule">
+        <div className="mx-auto flex h-12 max-w-[1400px] items-center justify-between gap-4 px-4">
+          <Link href="/" className="text-[17px] font-medium tracking-tight">
+            Plainfee
+          </Link>
+          <div className="flex items-center gap-1">
+            <NavLinks className="hidden items-center gap-1 md:flex" />
+            <WalletButton />
+          </div>
         </div>
+        <NavLinks className="flex items-center gap-1 overflow-x-auto border-t border-rule px-2 py-1 md:hidden" />
       </div>
-      <NavLinks className="flex items-center gap-1 overflow-x-auto border-t border-border px-2 py-1 md:hidden" />
     </header>
   );
 }

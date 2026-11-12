@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 
 export default function CheckPage() {
   return (
-    <section className="flex flex-col gap-10 py-8 md:py-12">
+    <section className="mx-auto flex w-full max-w-(--container-data) flex-col gap-10 px-4 py-12 md:py-16">
       <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,520px)] lg:gap-16">
         <div className="flex max-w-(--container-narrow) flex-col gap-4">
           <Label>COST CHECKER · UNISWAP V4 · ROBINHOOD CHAIN</Label>
-          <h1 className="measure-heading text-3xl md:text-4xl">Check what a pool really charges.</h1>
+          <h1 className="t-h1 measure-heading">Check what a pool really charges.</h1>
           <p className="lede">
             A hook can take value after a swap without it showing up in the pool&apos;s fee. Paste any pool ID and see
             both numbers side by side.

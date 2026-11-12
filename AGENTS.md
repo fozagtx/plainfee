@@ -65,9 +65,9 @@ make check       # what CI runs
 - Verify on Blockscout right after deploy. Write addresses to `contracts/deployments/4663.json` and the web `.env.local`.
 
 **Web**
-- Follow `DESIGN.md`: radius 0, hairlines, no shadows, uppercase mono controls written in uppercase in the content, headings at weight 400/500.
-- Never use `brand` for text. Use `brand-readable`. Never put white text on `highlight`, `warning` or `success`.
-- Every number on screen comes from the chain and links to its proof. No sample or mock data outside `/system`.
+- Follow `DESIGN.md`: flat (no gradient, shadow, glow or blur), 2px radius, 1px hairlines, mono + tabular-nums for every number.
+- `--accent` is for figures 24px+ and fills, never small text. The divergence ramp (`gap-1`…`gap-4`) means shown-vs-paid gap and nothing else.
+- Every number on screen comes from the chain and links to its proof. No sample or mock data.
 - Use `buttonClass()` on links. Never nest a `<button>` in an `<a>`.
 - Next 16 differs from older versions. Read `web/node_modules/next/dist/docs/` before using an API you're unsure of (see `web/AGENTS.md`).
 

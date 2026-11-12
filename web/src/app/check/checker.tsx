@@ -122,13 +122,13 @@ function Result({ data }: { data: PoolCheck }) {
         </h2>
         <span className="mono-xs text-subtle">
           POOL{" "}
-          <a href={txUrl(data.initTx)} target="_blank" rel="noreferrer" className="text-brand-readable underline">
+          <a href={txUrl(data.initTx)} target="_blank" rel="noreferrer" className="link">
             {short(data.poolId)}
           </a>
         </span>
       </div>
 
-      <FeeReadout shownBps={data.shownBps} paidBps={data.paidBps} toleranceBps={TOLERANCE_BPS} />
+      <FeeReadout shownBps={data.shownBps} paidBps={data.paidBps} toleranceBps={TOLERANCE_BPS} canTakeOutsideFee={takesOutsideFee} />
 
       <p className="lede max-w-(--container-narrow)">
         {gap > TOLERANCE_BPS
@@ -148,7 +148,7 @@ function Result({ data }: { data: PoolCheck }) {
                 {data.shownSource === "swap-event" && data.recordedSwapTx ? (
                   <>
                     from the fee field of the{" "}
-                    <a href={txUrl(data.recordedSwapTx)} target="_blank" rel="noreferrer" className="text-brand-readable underline">
+                    <a href={txUrl(data.recordedSwapTx)} target="_blank" rel="noreferrer" className="link">
                       latest swap
                     </a>
                   </>
@@ -165,7 +165,7 @@ function Result({ data }: { data: PoolCheck }) {
               </Row>
             ))}
             <Row label="HOOK">
-              <a href={addressUrl(data.key.hooks)} target="_blank" rel="noreferrer" className="font-mono text-brand-readable underline">
+              <a href={addressUrl(data.key.hooks)} target="_blank" rel="noreferrer" className="font-mono link">
                 {short(data.key.hooks)}
               </a>
             </Row>
@@ -188,7 +188,7 @@ function Result({ data }: { data: PoolCheck }) {
                 className={cx(
                   "flex items-center justify-between gap-2 px-4 py-1.5 font-mono text-xs",
                   !p.on && "text-subtle",
-                  p.on && p.movesValue && "bg-highlight text-foreground",
+                  p.on && p.movesValue && "bg-gap-3 text-ink",
                 )}
               >
                 <span>{p.name}</span>

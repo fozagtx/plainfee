@@ -91,7 +91,7 @@ export function TxStatus({ state }: { state: TxState }) {
   if (state.status === "idle") return null;
   const link =
     "hash" in state && state.hash ? (
-      <a href={txUrl(state.hash)} target="_blank" rel="noreferrer" className="font-mono text-xs text-brand-readable underline">
+      <a href={txUrl(state.hash)} target="_blank" rel="noreferrer" className="font-mono text-xs link">
         {short(state.hash)}
       </a>
     ) : null;
@@ -170,7 +170,7 @@ export function AmountInput({
           <span className="mono-xs text-subtle">
             BALANCE {balance}
             {onMax && (
-              <button type="button" onClick={onMax} className="ml-2 text-brand-readable underline">
+              <button type="button" onClick={onMax} className="ml-2 link">
                 MAX
               </button>
             )}

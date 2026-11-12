@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function SwapPage() {
   return (
-    <section className="flex flex-col gap-10 py-8 md:py-12">
+    <section className="mx-auto flex w-full max-w-(--container-data) flex-col gap-10 px-4 py-12 md:py-16">
       <div className="flex max-w-(--container-narrow) flex-col gap-4">
         <Label>SWAP · ETH / $WIF</Label>
-        <h1 className="measure-heading text-3xl md:text-4xl">Swap with the fee in plain sight.</h1>
+        <h1 className="t-h1 measure-heading">Swap with the fee in plain sight.</h1>
         <p className="lede">
           The fee is set by the pool and recorded in every Swap event: 0.30%, or less if you lock $WIF. All of it goes to
           the burn vault.
