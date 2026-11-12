@@ -19,7 +19,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-dvh">
         <Providers>
           <Header />
-          <main className="mx-auto w-full max-w-(--container-page) px-4 pt-24 pb-16 md:pt-28">{children}</main>
+          <main className="mx-auto w-full max-w-(--container-page) px-4 pt-28 pb-16 md:pt-28">{children}</main>
         </Providers>
       </body>
     </html>
