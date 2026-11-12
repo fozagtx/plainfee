@@ -42,6 +42,11 @@ argument, not a style.
 
 Declarative. Short. Verifiable. Closer to a lab report than a pitch deck.
 
+**Write for traders, not engineers.** The landing page never shows contract
+addresses, pool ids, permission bits, block numbers, function names or the word
+"deploy". Say "the fee the pool shows", "the fee you actually pay", "hidden fee",
+"lock", "burn". Technical proof lives on the pool check page, one click away.
+
 | Write this | Not this |
 |---|---|
 | "0.30%, charged in `beforeSwap`." | "Industry-leading low fees." |

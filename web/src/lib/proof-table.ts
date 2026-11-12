@@ -50,8 +50,20 @@ export function getProofTable(): Promise<ProofTable> {
 
 async function build(): Promise<ProofTable> {
   const latest = await serverClient.getBlockNumber();
-  const from = latest - SCAN_BLOCKS;
-  const logs = await serverClient.getLogs({ address: ADDRESSES.poolManager, event: SWAP, fromBlock: from, toBlock: latest });
+  // Busy stretches exceed the RPC's 10,000-log cap, so the window halves until it fits.
+  let span = SCAN_BLOCKS;
+  let from = latest - span;
+  let logs;
+  for (;;) {
+    try {
+      logs = await serverClient.getLogs({ address: ADDRESSES.poolManager, event: SWAP, fromBlock: from, toBlock: latest });
+      break;
+    } catch (err) {
+      if (span <= 200n) throw err;
+      span /= 2n;
+      from = latest - span;
+    }
+  }
 
   const counts = new Map<Hex, number>();
   for (const l of logs) counts.set(l.args.id!, (counts.get(l.args.id!) ?? 0) + 1);
@@ -81,6 +93,13 @@ async function build(): Promise<ProofTable> {
       });
     });
   }
+
+  // A pool that can't take a hidden fee but still shows a big gap is too thin to measure: the test trade
+  // itself moves the price. Leave it out rather than print a number that means nothing.
+  const MAX_IMPACT_BPS = 25;
+  const measurable = rows.filter((r) => r.canTakeOutsideFee || r.gapBps <= MAX_IMPACT_BPS);
+  rows.length = 0;
+  rows.push(...measurable);
 
   // Worst offender first: gaps a hook can take, by size, then everything else by gap.
   const rank = (r: ProofRow) => (r.canTakeOutsideFee && r.gapBps > TOLERANCE_BPS ? 1e6 + r.gapBps : r.gapBps);

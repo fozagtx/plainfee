@@ -106,22 +106,18 @@ export function ClaimProof({
   return (
     <div className={cx("grid grid-cols-1 border-y border-rule sm:grid-cols-2 sm:divide-x sm:divide-rule", className)}>
       <div className="flex flex-col gap-4 py-6 sm:pr-8">
-        <Label>WHAT THE POOL SHOWS</Label>
+        <Label>FEE THE POOL SHOWS</Label>
         <span className="t-data-lg">{shownBps === null ? "—" : pct(shownBps)}</span>
         <div className="flex min-h-6 flex-wrap items-center gap-1.5">
           {hidden ? (
-            <>
-              <Chip kind="hidden" />
-              <Chip kind="post-swap" />
-              <Chip kind="not-in-event" />
-            </>
+            <span className="t-micro rounded-sm border border-gap-4 px-1.5 py-0.5 text-danger-ink">HIDDEN FROM YOU</span>
           ) : (
             shownNote && <span className="t-small text-ink-soft">{shownNote}</span>
           )}
         </div>
       </div>
       <div className="flex flex-col gap-4 border-t border-rule py-6 sm:border-t-0 sm:pl-8">
-        <Label>WHAT YOU ACTUALLY PAY</Label>
+        <Label>FEE YOU ACTUALLY PAY</Label>
         <span className={cx("t-data-lg w-fit", match && known && "border-b border-match pb-1")}>
           {paidBps === null ? "—" : pct(paidBps)}
         </span>
